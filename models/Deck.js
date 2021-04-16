@@ -17,6 +17,7 @@ const DeckSchema = new mongoose.Schema({
     maxlength: [500, 'Name can not be more than 50 characters'],
   },
   category: {
+    type: String,
     required: [true, 'Please add a category'],
     maxlength: [50, 'Category can not be more than 50 characters'],
   },
