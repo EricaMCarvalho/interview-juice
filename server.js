@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const colors = require('colors');
 
 const connectDB = require('./config/db');
+const errorHandler = require('./middleware/error');
 const decks = require('./routes/decks');
 
 // Load env vars
@@ -24,6 +25,8 @@ if (process.env.NODE_ENV === 'development') {
 
 // Routes
 app.use('/api/v1/decks', decks);
+
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 
