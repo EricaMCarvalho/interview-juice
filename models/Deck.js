@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const slugify = require('slugify');
 
 const DeckSchema = new mongoose.Schema({
   name: {
@@ -31,6 +32,12 @@ const DeckSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
   },
+});
+
+// Create deck slug from name
+DeckSchema.pre('save', function (next) {
+  this.slug = slugify(this.name, { lower: true });
+  next();
 });
 
 module.exports = mongoose.model('Deck', DeckSchema);
