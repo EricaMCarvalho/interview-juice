@@ -6,7 +6,13 @@ const catchAsync = require('../middleware/catchAsync');
 // @route   GET /api/v1/decks
 // @access  Public
 exports.getDecks = catchAsync(async (req, res, next) => {
-  const decks = await Deck.find();
+  let query;
+
+  let queryStr = JSON.stringify(req.query);
+  queryStr = queryStr.replace(/\b(in)\b/g, (match) => `$${match}`);
+  queryStr = JSON.parse(queryStr);
+  console.log(queryStr);
+  const decks = await Deck.find(queryStr);
   res.status(200).json({ success: true, count: decks.length, data: decks });
 });
 
